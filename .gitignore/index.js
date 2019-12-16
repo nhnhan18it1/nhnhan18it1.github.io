@@ -1,5 +1,5 @@
 // var server = require("http").Server(app);
-var io = require("socket.io")(3000);
+var io = require("socket.io")(process.env.PORT || 3000);
 // server.listen(3000);
 var mangUser = [];
 io.on("connection", function(socket) {
