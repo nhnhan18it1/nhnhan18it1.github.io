@@ -1,0 +1,21 @@
+{
+    "name": "demo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "peerjs": "^1.1.0",
+        "simple-peer": "^9.6.2",
+        "socket.io": "^2.3.0",
+        "uid": "0.0.2"
+    },
+    "devDependencies": {
+        "webpack": "^4.41.2",
+        "webpack-cli": "^3.3.10"
+    }
+}
