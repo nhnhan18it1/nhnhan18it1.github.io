@@ -1,7 +1,18 @@
 // var server = require("http").Server(app);
-var io = require("socket.io")(process.env.PORT || 3000);
-io.set('origins', '*:*');
-// server.listen(3000);
+var express = require("express");
+var app = express();
+var server = require("http").createServer(app);
+var io = require("socket.io").listen(server);
+var fs = require("fs")
+server.listen(process.env.PORT || 3000);
+
+app.get("/", function(req, res) {
+    res.sendFile(__dirname + "/index.html");
+})
+app.get('/abc', function(req, res) {
+    res.send("abc");
+});
+
 var mangUser = [];
 io.on("connection", function(socket) {
     console.log("co nguoi ket noi" + socket.id);
@@ -42,7 +53,7 @@ io.on("connection", function(socket) {
             // io.sockets.emit("server-send-data", data);
     })
     socket.on('client-send-ID', function(data) {
-
+        console.log(data);
         var obj = { IDND: data.IDND, Name: data.Name, Avt: data.Avt, IDN: socket.id }
         var check = true;
         if (mangUser.length == 0) {
