@@ -16,7 +16,7 @@ app.get('/abc', function(req, res) {
 var mangUser = [];
 io.on("connection", function(socket) {
     console.log("co nguoi ket noi" + socket.id);
-    //socket.broadcast.emit('server-send-listus', mangUser)
+    socket.broadcast.emit('server-send-listus', mangUser)
     socket.on('disconnect', function() {
         console.log(socket.id + "-Ngat ket noi");
         if (mangUser.length != 0) {
@@ -31,7 +31,7 @@ io.on("connection", function(socket) {
 
 
     })
-    socket.on('mobile-require-list',function(){
+    socket.on('mobile-require-list', function() {
         socket.emit('server-send-listus', mangUser);
     })
     socket.on('Client-send-message', function(data) {
