@@ -1,6 +1,7 @@
 const openCamera = require('./openCamera');
 const playVideo = require('./playVideo');
-const socket = io('http://localhost:3000');
+const socket = io('https://nhandz.herokuapp.com/');
+//const socket = io('http://nhnhan.18it1.github.io/');
 //const $ = require('https://code.jquery.com/jquery-3.4.1.min.js');
 //openCamera();
 const Peer = require('simple-peer');

@@ -1,6 +1,18 @@
 // var server = require("http").Server(app);
-var io = require("socket.io")(3000);
-// server.listen(3000);
+var express = require("express");
+var app = express();
+var server = require("http").createServer(app);
+var io = require("socket.io").listen(server);
+var fs = require("fs")
+server.listen(process.env.PORT || 3000);
+
+app.get("/", function(req, res) {
+    res.sendFile(__dirname + "/index.html");
+})
+app.get('/abc', function(req, res) {
+    res.send("abc");
+});
+
 var mangUser = [];
 io.on("connection", function(socket) {
     console.log("co nguoi ket noi" + socket.id);
@@ -12,20 +24,27 @@ io.on("connection", function(socket) {
                 if (mangUser[index].IDN == socket.id) {
                     mangUser.splice(index, 1)
                     io.sockets.emit('server-send-listus', mangUser)
-                    break;
+                        //break;
                 }
             }
         }
 
 
     })
-
+    socket.on('stream', function(data) {
+        console.log(data)
+        socket.broadcast.emit('sendstream', data);
+    })
+    socket.on('mobile-require-list', function() {
+        socket.emit('server-send-listus', mangUser);
+    })
     socket.on('Client-send-message', function(data) {
         console.log(data)
         socket.broadcast.emit('Server-send-message', data);
     })
 
     socket.on('Client-send-messagePP', function(data) {
+        console.log(data);
         if (mangUser.length != 0) {
             for (let index = 0; index < mangUser.length; index++) {
                 if (mangUser[index].IDND == data.IDR) {
@@ -41,7 +60,7 @@ io.on("connection", function(socket) {
             // io.sockets.emit("server-send-data", data);
     })
     socket.on('client-send-ID', function(data) {
-
+        console.log(data);
         var obj = { IDND: data.IDND, Name: data.Name, Avt: data.Avt, IDN: socket.id }
         var check = true;
         if (mangUser.length == 0) {
@@ -52,8 +71,8 @@ io.on("connection", function(socket) {
             for (let index = 0; index < mangUser.length; index++) {
                 if (mangUser[index].IDND == data.IDND || mangUser[index].IDN == socket.id) {
                     console.log('Trung')
-                    check = false;
-                    break;
+                    check = true; //falses
+                    //break;
                 }
             }
             if (check) {
