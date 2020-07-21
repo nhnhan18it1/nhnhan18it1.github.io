@@ -98,7 +98,7 @@ io.on("connection", function(socket) {
             mangUser[index];
             if (data.IDNN == mangUser[index].IDND) {
                 socket.to(mangUser[index].IDN).emit('server-cmt', data)
-                break;
+                    //break;
             }
         }
 
@@ -118,7 +118,7 @@ io.on("connection", function(socket) {
             mangUser[index];
             if (data.IDND == mangUser[index].IDND) {
                 socket.to(mangUser[index].IDN).emit('server-send-rqvideo', data)
-                break;
+                    //break;
             }
         }
     })
