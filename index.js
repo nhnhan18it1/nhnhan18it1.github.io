@@ -158,12 +158,31 @@ io.on("connection", function(socket) {
     });
 
     socket.on("request_to",function(data) {
+        //data = {IDNG,Avt,name}
         mangUser.forEach(element => {
             if (data.IDNN == element.IDND) {
-                socket.to(element.IDN).emit("s_request","{IDS:"+data.IDNG+"}")
+                socket.to(element.IDN).emit("s_request","{IDS:'"+data.IDNG+"',Avt:'"+data.Avt+"',name:"+data.name+"}")
                 return
             }
         });
+    })
+
+    socket.on("c_an_request_to",function(data){
+        F_IDN="";
+        mangUser.forEach(element => {
+            if (element.IDND==data.IDNN) {
+                F_IDN=element.IDN;
+            }
+        });
+        if (F_IDN!=="") {
+            if (data.isAccept==true) {
+                socket.to(F_IDN).emit("sv_an_request_to","{isAccept:true}")
+            }
+            else{
+                socket.to(F_IDN).emit("sv_an_request_to","{isAccept:false}")
+            }
+        }
+        
     })
 
     socket.on("create", function(data) {
