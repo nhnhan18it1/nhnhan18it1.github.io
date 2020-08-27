@@ -159,11 +159,11 @@ io.on("connection", function(socket) {
 
     socket.on("request_to",function(data) {
         //data = {IDNG,Avt,name}
-        
+        console.log(data)
         mangUser.forEach(element => {
             if (data.IDNN == element.IDND) {
                 socket.to(element.IDN).emit("s_request","{IDS:'"+data.IDNG+"',Avt:'"+data.Avt+"',name:"+data.name+"}")
-                console.log("request_to : "+element.IDN)
+                
             }
         });
     })
