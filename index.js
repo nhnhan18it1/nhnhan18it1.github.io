@@ -162,7 +162,7 @@ io.on("connection", function(socket) {
         console.log(data.IDNG)
         mangUser.forEach(element => {
             if (data.IDNN == element.IDND) {
-                socket.to(element.IDN).emit("s_request","{IDS:'"+data.IDNG+"',Avt:'"+data.Avt+"',name:"+data.name+"}")
+                socket.to(element.IDN).emit("s_request",{IDS:'"+data.IDNG+"',Avt:'"+data.Avt+"',name:"+data.name+"})
                 
             }
         });
